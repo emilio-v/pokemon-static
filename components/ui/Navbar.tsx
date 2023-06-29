@@ -1,8 +1,11 @@
-import { Spacer, Text, useTheme } from "@nextui-org/react";
-import Image from "next/image";
+import { Spacer, Text, useTheme, Image } from "@nextui-org/react";
+import Link from "next/link";
 
 export const Navbar = () => {
   const { theme } = useTheme();
+
+  const randomPokemon = Math.floor(Math.random() * 151) + 1;
+
   return (
     <div
       style={{
@@ -15,23 +18,26 @@ export const Navbar = () => {
         backgroundColor: theme?.colors.gray100.value,
       }}
     >
-      <Image
-        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
-        // src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-        alt="Icon"
-        width={70}
-        height={70}
-      />
-      <Text color="white" h2>
-        P
-      </Text>
-      <Text color="white" h3>
-        okemon
-      </Text>
+      <Link href="/" style={{ display: "flex" }}>
+        <Image
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randomPokemon}.png`}
+          alt="Icon"
+          width={70}
+          height={70}
+        />
+        <Text color="white" h2 css={{ margin: 0 }}>
+          P
+        </Text>
+        <Text color="white" h3 css={{ margin: 0 }}>
+          okemon
+        </Text>
+      </Link>
 
       <Spacer css={{ flex: 1 }} />
 
-      <Text color="white">Favorites</Text>
+      <Link href="/favorites">
+        <Text color="white">Favorites</Text>
+      </Link>
     </div>
   );
 };
