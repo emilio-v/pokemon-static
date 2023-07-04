@@ -1,11 +1,10 @@
 import { Spacer, Text, useTheme, Image } from "@nextui-org/react";
 import Link from "next/link";
 
+const randomPokemon = Math.floor(Math.random() * 151) + 1;
+
 export const Navbar = () => {
   const { theme } = useTheme();
-
-  const randomPokemon = Math.floor(Math.random() * 151) + 1;
-
   return (
     <div
       style={{
