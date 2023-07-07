@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { Button, Card, Container, Grid, Image, Text } from "@nextui-org/react";
+import confetti from "canvas-confetti";
 import { Layout } from "@/components/layouts";
 import { pokeApi } from "@/api";
 import { Pokemon } from "@/interfaces";
@@ -24,6 +25,19 @@ const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon }) => {
   const onToggleFavorite = () => {
     localFavorites.toggleFavorite(id);
     setIsInFavorites(!isInFavorites);
+
+    if (!isInFavorites) {
+      confetti({
+        zIndex: 999,
+        particleCount: 100,
+        spread: 160,
+        angle: -100,
+        origin: {
+          x: 1,
+          y: 0,
+        },
+      });
+    }
   };
 
   return (
@@ -55,7 +69,7 @@ const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon }) => {
                 bordered={!isInFavorites}
                 onPress={onToggleFavorite}
               >
-                Save to Favorites
+                {isInFavorites ? "In Favorites" : "Save to Favorites"}
               </Button>
             </Card.Header>
             <Card.Body>
