@@ -4,9 +4,8 @@ import { ParsedUrlQuery } from "querystring";
 import { Button, Card, Container, Grid, Image, Text } from "@nextui-org/react";
 import confetti from "canvas-confetti";
 import { Layout } from "@/components/layouts";
-import { pokeApi } from "@/api";
 import { Pokemon } from "@/interfaces";
-import { capitalize, localFavorites } from "@/utils";
+import { capitalize, getPokemonInfo, localFavorites } from "@/utils";
 
 interface PokemonPageProps {
   pokemon: Pokemon;
@@ -120,11 +119,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params as Params;
-  const { data } = await pokeApi.get<Pokemon>(`/pokemon/${id}`);
 
   return {
     props: {
-      pokemon: data,
+      pokemon: await getPokemonInfo(id),
     },
   };
 };
